@@ -2,7 +2,7 @@
 
 Project:
 
-CptS 122 Final Programming Assignment
+CptS 122 Final Programming Assignment (PA9)
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ Team Members:
 
 Jason Taylor - Lab Section 2
 
-Ethan Eichenberger - Lab Section 
+Ethan Eichenberger - Lab Section 7
 
 Matthew Jewell - Lab Section 
 
