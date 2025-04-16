@@ -16,11 +16,11 @@ Team Members:
 
 Jason Taylor - Lab Section 2
 
-Ethan Ike - Lab Section 
+Ethan Eichenberger - Lab Section 
 
 Matthew Jewell - Lab Section 
 
-Trevis - Lab Section 
+Trevys - Lab Section 
 
 ----------------------------------------------------------------------------------------------------------------------------
 
