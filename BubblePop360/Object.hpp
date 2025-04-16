@@ -8,5 +8,5 @@ private:
 protected:
 
 public:
-  virtual void update();
+	//virtual void update();
 };
