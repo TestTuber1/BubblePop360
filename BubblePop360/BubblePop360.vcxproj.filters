@@ -18,6 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.hpp">
@@ -46,5 +49,19 @@
     <Text Include="readme.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\credits.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\guide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\play.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

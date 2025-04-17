@@ -1,13 +1,19 @@
-#include "Player.hpp"
+#include "Game.hpp"
 
-// Window will create a vector of Object pointers and display
+enum class AnimationPhase {
+    None,
+    RotateForward,
+    RotateBackward,
+    ReturnToCenter
+};
+
+// Window will create an interactable window
 class Window
 {
 private:
 
 public:
-	Window()
-	{
+	Window(){}
 
-	}
+	void run();
 };

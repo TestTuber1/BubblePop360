@@ -1,6 +1,6 @@
-#include "Window.hpp"
+#include "Player.hpp"
 
-// Game will create and constantly refresh a Window object
+// Game will create a vector of Object pointers and constantly call updates
 class Game
 {
 private:
