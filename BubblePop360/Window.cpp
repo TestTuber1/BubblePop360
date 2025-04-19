@@ -74,6 +74,10 @@ void Window::run()
     AnimationPhase creditsPhase = AnimationPhase::None;
     bool wasCreditsHovered = false;
 
+    bool playclicked = false;
+    bool guideclicked = false;
+    bool creditsclicked = false;
+
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -88,6 +92,10 @@ void Window::run()
         // -------------------------------------------------------------------------
 
         bool isPlayHovered = playButton.getGlobalBounds().contains(mouseWorld);
+        if (isPlayHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            playclicked = true;
+            window.close();
+        }
 
         if (isPlayHovered && !wasPlayHovered && playPhase == AnimationPhase::None) {
             playPhase = AnimationPhase::RotateForward;
@@ -97,6 +105,10 @@ void Window::run()
         // -------------------------------------------------------------------------
 
         bool isGuideHovered = guideButton.getGlobalBounds().contains(mouseWorld);
+        if (isGuideHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            guideclicked = true;
+            window.close();
+        }
 
         if (isGuideHovered && !wasGuideHovered && guidePhase == AnimationPhase::None) {
             guidePhase = AnimationPhase::RotateForward;
@@ -107,6 +119,10 @@ void Window::run()
 
 
         bool isCreditsHovered = creditsButton.getGlobalBounds().contains(mouseWorld);
+        if (isCreditsHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            creditsclicked = true;
+            window.close();
+        }
 
         if (isCreditsHovered && !wasCreditsHovered && creditsPhase == AnimationPhase::None) {
             creditsPhase = AnimationPhase::RotateForward;
@@ -212,5 +228,42 @@ void Window::run()
         window.draw(creditsButton);
 
         window.display();
+    }
+
+    if (playclicked) {
+        sf::RenderWindow playwindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
+        while (playwindow.isOpen()) {
+            while (const std::optional event = playwindow.pollEvent()) {
+                if (event->is<sf::Event::Closed>())
+                    playwindow.close();
+            }
+        
+            playwindow.clear(background);
+            playwindow.display();
+        }
+    }
+    if (guideclicked) {
+        sf::RenderWindow guidewindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
+        while (guidewindow.isOpen()) {
+            while (const std::optional event = guidewindow.pollEvent()) {
+                if (event->is<sf::Event::Closed>())
+                    guidewindow.close();
+            }
+
+            guidewindow.clear(background);
+            guidewindow.display();
+        }
+    }
+    if (creditsclicked) {
+        sf::RenderWindow creditswindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
+        while (creditswindow.isOpen()) {
+            while (const std::optional event = creditswindow.pollEvent()) {
+                if (event->is<sf::Event::Closed>())
+                    creditswindow.close();
+            }
+
+            creditswindow.clear(background);
+            creditswindow.display();
+        }
     }
 }
