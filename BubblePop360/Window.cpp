@@ -230,15 +230,46 @@ void Window::run()
         window.display();
     }
 
+
     if (playclicked) {
         sf::RenderWindow playwindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
+        sf::Color background(255, 200, 255);
+        window.setFramerateLimit(60);
+        sf::Texture arrowTexture;
+        arrowTexture.loadFromFile("../assets/arrow.png");
+
+        sf::Sprite arrow(arrowTexture);
+
+        arrow.setScale(sf::Vector2f(0.1f, 0.1f));
+
+        arrow.setOrigin(sf::Vector2f(arrowTexture.getSize().x * 0.5, arrowTexture.getSize().y * 1));
+
+        arrow.setPosition(sf::Vector2f(514.f, 384.f));
+
+        float arrowRotation = 0.0;
+        float rotationSpeed = .07;
+        AnimationPhase arrowPhase = AnimationPhase::None;
+        bool wasRightPressed = false;
         while (playwindow.isOpen()) {
             while (const std::optional event = playwindow.pollEvent()) {
                 if (event->is<sf::Event::Closed>())
                     playwindow.close();
             }
-        
+            bool isRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right);
+             if (isRightPressed)  {
+                 arrowRotation += rotationSpeed;
+                    std::cout << "sdsd";
+                }
+             bool isLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left);
+             if (isLeftPressed) {
+                 arrowRotation -= rotationSpeed;
+             }
+            wasRightPressed = isRightPressed;
+            
+
+            arrow.setRotation(sf::degrees(arrowRotation));
             playwindow.clear(background);
+            playwindow.draw(arrow);
             playwindow.display();
         }
     }

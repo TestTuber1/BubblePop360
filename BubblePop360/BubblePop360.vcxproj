@@ -163,6 +163,7 @@
     <Image Include="..\assets\guide.png" />
     <Image Include="..\assets\play.png" />
     <Image Include="..\assets\title.png" />
+    <Image Include="arrow.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -63,5 +63,8 @@
     <Image Include="..\assets\play.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
