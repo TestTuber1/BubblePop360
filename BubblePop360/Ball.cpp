@@ -54,7 +54,7 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 
 	if (distanceSquared <= radiusSquared) 
 	{
-		if ((ball1->isPlayer || ball2->isPlayer) && (ball1->ballColor == ball2->ballColor))
+		if ((ball1->isPlayer == true || ball2->isPlayer == true) && (ball1->ballColor == ball2->ballColor))
 		{
 			ball1->isPlayer = true;
 			ball2->isPlayer = true;
@@ -71,7 +71,7 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 
 			if (objects[0]->ballCount >= 3)
 			{
-				objects[0]->points += (100 * objects[0]->ballCount * (1 + (objects[0]->ballCount * 0.1)));
+				objects[0]->points += (100.0 * (double)(objects[0]->ballCount) * (1 + (((double)(objects[0]->ballCount) * 0.1) - 0.3)));
 				
 				for (size_t i = objects.size(); i-- > 0;)
 				{
