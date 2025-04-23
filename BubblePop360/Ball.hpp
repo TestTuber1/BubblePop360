@@ -9,6 +9,7 @@ private:
 	static sf::Texture yellowBallTexture;
 
 	void move();
+	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2);
 
 	float direction;
 	sf::Vector2f pos;
@@ -50,6 +51,7 @@ public:
 	{
 		isPlayer = true;
 		isMoving = true;
+		justSpawned = true;
 		direction = arrowRotation * (pi / 180.0f);
 
 		std::random_device rd;
@@ -77,7 +79,7 @@ public:
 		objSprite->setPosition(sf::Vector2f(484.f, 364.f));
 	}
 
-	void update(vector<std::unique_ptr<Object>>& objects) override;
+	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
 
 	static void loadTextures()
 	{

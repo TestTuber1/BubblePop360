@@ -415,7 +415,7 @@ void Window::run()
                 std::vector<std::unique_ptr<Object>> newObjects;
                 for (size_t i = 0; i < objects.size(); ++i)
                 {
-                    objects[i]->update(newObjects);
+                    objects[i]->update(newObjects, objects);
                 }
                 for (auto& obj : newObjects)
                 {
@@ -437,8 +437,9 @@ void Window::run()
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:
-            objects[0]->state = gameState::Running;
             window.draw(redMenuButton);
+            objects.clear();
+            objects.push_back(std::make_unique<Player>());
             break;
         }
         

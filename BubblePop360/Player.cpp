@@ -23,21 +23,41 @@ void Player::movement()
     objSprite->setRotation(sf::degrees(arrowRotation));
 }
 
-void Player::spawnBall(vector<std::unique_ptr<Object>>& objects)
+void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects)
 {
     static bool spacePressedLastFrame = false;
 
     bool isSpacePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space);
     if (!spacePressedLastFrame && isSpacePressed)
     {
-        objects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
+        newObjects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
     }
     spacePressedLastFrame = isSpacePressed;
 }
 
-void Player::update(vector<std::unique_ptr<Object>>& objects)
+void Player::checkGame(vector<std::unique_ptr<Object>>& objects)
+{
+    for (size_t i = 1; i < objects.size(); ++i)
+    {
+        float dx = this->objSprite->getPosition().x - objects[i]->objSprite->getPosition().x;
+        float dy = this->objSprite->getPosition().y - objects[i]->objSprite->getPosition().y;
+
+        float distanceSquared = dx * dx + dy * dy;
+        float radiusSquared = (32 + 32) * (32 + 32);
+
+        if (!(objects[i]->justSpawned) && distanceSquared <= radiusSquared)
+        {
+            state = gameState::End;
+        }
+    }
+}
+
+void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
     movement();
-    spawnBall(objects);
+
+    spawnBall(newObjects);
+
+    checkGame(objects);
 }
 	

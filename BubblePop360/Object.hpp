@@ -8,6 +8,7 @@ public:
 	std::optional<sf::Sprite> objSprite;
 	sf::Vector2f velocity;
 	bool isMoving;
+	bool justSpawned;
 
 	Object() 
 	{
@@ -16,5 +17,5 @@ public:
 	}
 	virtual ~Object() {}
 
-	virtual void update(vector<std::unique_ptr<Object>>& objects) {}
+	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {}
 };
