@@ -1,3 +1,4 @@
+#pragma once
 #include "header.hpp"
 
 // Object will be the entity for every object in the game
@@ -17,6 +18,7 @@ public:
 
 	// for the player
 	double points;
+	int ballCount;
 
 	Object() 
 	{

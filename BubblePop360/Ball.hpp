@@ -1,3 +1,4 @@
+#pragma once
 #include "Object.hpp"
 
 // Ball will exist and pop on direct/indirect contact with a isPlayer = true Ball
@@ -9,7 +10,8 @@ private:
 	static sf::Texture yellowBallTexture;
 
 	void move();
-	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2);
+	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects);
+	void checkBallColor(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects);
 
 	float direction;
 	sf::Vector2f pos;
@@ -48,7 +50,7 @@ public:
 
 	Ball(float arrowRotation)
 	{
-		isPlayer = true;
+		isPlayer = false;
 		isMoving = false;
 		justSpawned = true;
 		isCollidable = false;

@@ -1,3 +1,4 @@
+#pragma once
 #include "Ball.hpp"
 
 // Player will handle controls of Player and create Ball objects
@@ -13,12 +14,14 @@ private:
 public:
 	Player() 
 	{ 
+		isPlayer = false;
 		state = gameState::Running;
 
 		arrowTexture.loadFromFile("../assets/arrow.png");
 		objSprite= sf::Sprite(arrowTexture);
 		arrowRotation = 0.0;
 		points = 0.0;
+		ballCount = 0;
 	}
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
 };
