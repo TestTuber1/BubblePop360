@@ -6,7 +6,7 @@ void Player::movement()
 
     objSprite->setOrigin(sf::Vector2f(arrowTexture.getSize().x * 0.5, arrowTexture.getSize().y * 1));
 
-    objSprite->setPosition(sf::Vector2f(514.f, 384.f));
+    objSprite->setPosition(sf::Vector2f(524.f, 384.f));
 
     float rotationSpeed = 3.25;
     AnimationPhase arrowPhase = AnimationPhase::None;

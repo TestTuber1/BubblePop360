@@ -76,7 +76,7 @@ public:
 		}
 
 		objSprite->setScale(sf::Vector2f(0.25f, 0.25f));
-		objSprite->setPosition(sf::Vector2f(481.5f, 354.f));
+		objSprite->setPosition(sf::Vector2f(491.5f, 354.f));
 	}
 
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
