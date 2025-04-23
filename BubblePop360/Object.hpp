@@ -7,9 +7,16 @@ public:
 	gameState state;
 	std::optional<sf::Sprite> objSprite;
 	sf::Vector2f velocity;
+
+	// for the ball
 	bool isMoving;
 	bool justSpawned;
 	bool isCollidable;
+	bool isPlayer;
+	enum Color ballColor;
+
+	// for the player
+	double points;
 
 	Object() 
 	{

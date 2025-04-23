@@ -14,9 +14,6 @@ private:
 	float direction;
 	sf::Vector2f pos;
 public:
-	bool isPlayer;
-	enum Color ballColor;
-
 	void shoot(float arrowRotation);
 
 	Ball() 

@@ -39,6 +39,19 @@ void Window::run()
     sf::Vector2f instructionPos(xInstructionPos, yInstructionPos);
     instructions.move(instructionPos);
 
+    sf::Texture programmersTexture;
+    programmersTexture.loadFromFile("../assets/programmers.png");
+
+    sf::Sprite programmers(programmersTexture);
+
+    float xProgrammersScale = 0.25, yProgrammersScale = 0.25;
+    sf::Vector2f programmersScale(xProgrammersScale, yProgrammersScale);
+    programmers.scale(programmersScale);
+
+    float xProgrammersPos = 0, yProgrammersPos = -5;
+    sf::Vector2f programmersPos(xProgrammersPos, yProgrammersPos);
+    programmers.move(programmersPos);
+
     // -------------------------------------------------------------------------
 
     sf::Texture playTexture;
@@ -454,6 +467,7 @@ void Window::run()
             window.draw(blueMenuButton);
             break;
         case Screen::Credits:
+            window.draw(programmers);
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:

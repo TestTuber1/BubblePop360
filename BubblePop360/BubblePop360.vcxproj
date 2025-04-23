@@ -166,6 +166,7 @@
     <Image Include="..\assets\guide.png" />
     <Image Include="..\assets\instructions.png" />
     <Image Include="..\assets\play.png" />
+    <Image Include="..\assets\programmers.png" />
     <Image Include="..\assets\redBall.png" />
     <Image Include="..\assets\redMenu.png" />
     <Image Include="..\assets\title.png" />

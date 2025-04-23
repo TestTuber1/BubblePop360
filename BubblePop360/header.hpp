@@ -36,4 +36,13 @@ enum class AnimationPhase {
 	ReturnToCenter
 };
 
+enum class Screen
+{
+	Menu,
+	Play,
+	Guide,
+	Credits,
+	GameOver
+};
+
 const float pi = 3.1415926535897932;

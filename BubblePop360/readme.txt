@@ -20,7 +20,7 @@ Ethan Eichenberger - Lab Section 7
 
 Matthew Jewell - Lab Section 
 
-Trevys - Lab Section 
+Trevys Okamura - Lab Section 
 
 ----------------------------------------------------------------------------------------------------------------------------
 
