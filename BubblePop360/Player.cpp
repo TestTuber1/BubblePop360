@@ -23,13 +23,14 @@ void Player::movement()
     objSprite->setRotation(sf::degrees(arrowRotation));
 }
 
-void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects)
+void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
     static bool spacePressedLastFrame = false;
 
     bool isSpacePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space);
     if (!spacePressedLastFrame && isSpacePressed)
     {
+        objects[objects.size() - 1]->shoot(arrowRotation - 90);
         newObjects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
     }
     spacePressedLastFrame = isSpacePressed;
@@ -56,7 +57,7 @@ void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uni
 {
     movement();
 
-    spawnBall(newObjects);
+    spawnBall(newObjects, objects);
 
     checkGame(objects);
 }

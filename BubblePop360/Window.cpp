@@ -6,6 +6,7 @@ void Window::run()
 
     vector<std::unique_ptr<Object>> objects;
     objects.push_back(std::make_unique<Player>());
+    objects.push_back(std::make_unique<Ball>(1.f));
 
     Screen currentScreen = Screen::Menu;
     sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
@@ -88,7 +89,7 @@ void Window::run()
 
     redMenuButton.scale(buttonScale);
 
-    float xRedMenuPos = 402, yRedMenuPos = 625;
+    float xRedMenuPos = 402, yRedMenuPos = 600;
     sf::Vector2f redMenuPos(xRedMenuPos, yRedMenuPos);
     redMenuButton.move(redMenuPos);
 
@@ -101,7 +102,7 @@ void Window::run()
 
     blueMenuButton.scale(buttonScale);
 
-    float xBlueMenuPos = 402, yBlueMenuPos = 625;
+    float xBlueMenuPos = 402, yBlueMenuPos = 600;
     sf::Vector2f blueMenuPos(xBlueMenuPos, yBlueMenuPos);
     blueMenuButton.move(blueMenuPos);
 
@@ -114,7 +115,7 @@ void Window::run()
 
     yellowMenuButton.scale(buttonScale);
 
-    float xYellowMenuPos = 402, yYellowMenuPos = 625;
+    float xYellowMenuPos = 402, yYellowMenuPos = 600;
     sf::Vector2f yellowMenuPos(xYellowMenuPos, yYellowMenuPos);
     yellowMenuButton.move(yellowMenuPos);
 
@@ -439,6 +440,11 @@ void Window::run()
                     if (objects[i]->objSprite)
                         window.draw(*(objects[i]->objSprite));
                 }
+                while (const std::optional event = window.pollEvent())
+                {
+                    if (event->is<sf::Event::Closed>())
+                        window.close();
+                }
                 window.display();
             }
             currentScreen = Screen::GameOver;
@@ -454,6 +460,7 @@ void Window::run()
             window.draw(redMenuButton);
             objects.clear();
             objects.push_back(std::make_unique<Player>());
+            objects.push_back(std::make_unique<Ball>(1.f));
             break;
         }
         

@@ -17,6 +17,8 @@ public:
 	bool isPlayer;
 	enum Color ballColor;
 
+	void shoot(float arrowRotation);
+
 	Ball() 
 	{
 		isPlayer = false;
@@ -50,8 +52,9 @@ public:
 	Ball(float arrowRotation)
 	{
 		isPlayer = true;
-		isMoving = true;
+		isMoving = false;
 		justSpawned = true;
+		isCollidable = false;
 		direction = arrowRotation * (pi / 180.0f);
 
 		std::random_device rd;
@@ -76,7 +79,7 @@ public:
 		}
 
 		objSprite->setScale(sf::Vector2f(0.25f, 0.25f));
-		objSprite->setPosition(sf::Vector2f(484.f, 364.f));
+		objSprite->setPosition(sf::Vector2f(481.5f, 354.f));
 	}
 
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;

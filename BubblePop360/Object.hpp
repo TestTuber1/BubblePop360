@@ -9,6 +9,7 @@ public:
 	sf::Vector2f velocity;
 	bool isMoving;
 	bool justSpawned;
+	bool isCollidable;
 
 	Object() 
 	{
@@ -18,4 +19,5 @@ public:
 	virtual ~Object() {}
 
 	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {}
+	virtual void shoot(float arrowRotation) {}
 };

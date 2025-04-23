@@ -5,7 +5,7 @@ class Player : public Object
 {
 private:
 	void movement();
-	void spawnBall(vector<std::unique_ptr<Object>>& objects);
+	void spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects);
 	void checkGame(vector<std::unique_ptr<Object>>& objects);
 
 	sf::Texture arrowTexture;

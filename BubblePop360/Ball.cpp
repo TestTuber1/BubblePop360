@@ -44,6 +44,9 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 		return;
 	}
 
+	if (!(ball1->isCollidable) || !(ball2->isCollidable))
+		return;
+
 	float dx = ball1->objSprite->getPosition().x - ball2->objSprite->getPosition().x;
 	float dy = ball1->objSprite->getPosition().y - ball2->objSprite->getPosition().y;
 	float distanceSquared = dx * dx + dy * dy;
@@ -61,6 +64,13 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 		ball2->isMoving = false;
 		ball2->justSpawned = false;
 	}
+}
+
+void Ball::shoot(float arrowRotation)
+{
+	isMoving = true;
+	isCollidable = true;
+	direction = arrowRotation * (pi / 180.0f);
 }
 
 void Ball::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
