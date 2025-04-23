@@ -143,12 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.hpp" />
-    <ClInclude Include="Game.hpp" />
     <ClInclude Include="header.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -159,10 +160,16 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\assets\blueBall.png" />
+    <Image Include="..\assets\blueMenu.png" />
     <Image Include="..\assets\credits.png" />
     <Image Include="..\assets\guide.png" />
     <Image Include="..\assets\play.png" />
+    <Image Include="..\assets\redBall.png" />
+    <Image Include="..\assets\redMenu.png" />
     <Image Include="..\assets\title.png" />
+    <Image Include="..\assets\yellowBall.png" />
+    <Image Include="..\assets\yellowMenu.png" />
     <Image Include="arrow.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

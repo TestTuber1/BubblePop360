@@ -1,12 +1,17 @@
 #include "header.hpp"
 
 // Object will be the entity for every object in the game
-class Object : sf::Sprite
+class Object
 {
-private:
-
-protected:
-
 public:
-	//virtual void update();
+	gameState state;
+	std::optional<sf::Sprite> objSprite;
+
+	Object() 
+	{
+		state = gameState::End;
+	}
+	virtual ~Object() {}
+
+	virtual void update(vector<std::unique_ptr<Object>>& objects) {}
 };

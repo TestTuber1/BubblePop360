@@ -21,6 +21,12 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.hpp">
@@ -36,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Test.hpp">
@@ -64,6 +67,24 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\blueMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\redMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\yellowMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\blueBall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\redBall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\yellowBall.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

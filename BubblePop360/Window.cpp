@@ -2,6 +2,12 @@
 
 void Window::run()
 {
+    Ball::loadTextures();
+
+    vector<std::unique_ptr<Object>> objects;
+    objects.push_back(std::make_unique<Player>());
+
+    Screen currentScreen = Screen::Menu;
     sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
     sf::Color background(252, 247, 255);
     window.setFramerateLimit(60);
@@ -62,6 +68,45 @@ void Window::run()
 
     // -------------------------------------------------------------------------
 
+    sf::Texture redMenuTexture;
+    redMenuTexture.loadFromFile("../assets/redMenu.png");
+
+    sf::Sprite redMenuButton(redMenuTexture);
+
+    redMenuButton.scale(buttonScale);
+
+    float xRedMenuPos = 402, yRedMenuPos = 575;
+    sf::Vector2f redMenuPos(xRedMenuPos, yRedMenuPos);
+    redMenuButton.move(redMenuPos);
+
+    // -------------------------------------------------------------------------
+
+    sf::Texture blueMenuTexture;
+    blueMenuTexture.loadFromFile("../assets/blueMenu.png");
+
+    sf::Sprite blueMenuButton(blueMenuTexture);
+
+    blueMenuButton.scale(buttonScale);
+
+    float xBlueMenuPos = 402, yBlueMenuPos = 575;
+    sf::Vector2f blueMenuPos(xBlueMenuPos, yBlueMenuPos);
+    blueMenuButton.move(blueMenuPos);
+
+    // -------------------------------------------------------------------------
+
+    sf::Texture yellowMenuTexture;
+    yellowMenuTexture.loadFromFile("../assets/yellowMenu.png");
+
+    sf::Sprite yellowMenuButton(yellowMenuTexture);
+
+    yellowMenuButton.scale(buttonScale);
+
+    float xYellowMenuPos = 402, yYellowMenuPos = 575;
+    sf::Vector2f yellowMenuPos(xYellowMenuPos, yYellowMenuPos);
+    yellowMenuButton.move(yellowMenuPos);
+
+    // -------------------------------------------------------------------------
+
     float playRotation = 0.0;
     AnimationPhase playPhase = AnimationPhase::None;
     bool wasPlayHovered = false;
@@ -74,9 +119,25 @@ void Window::run()
     AnimationPhase creditsPhase = AnimationPhase::None;
     bool wasCreditsHovered = false;
 
+    float redMenuRotation = 0.0;
+    AnimationPhase redMenuPhase = AnimationPhase::None;
+    bool wasRedMenuHovered = false;
+
+    float blueMenuRotation = 0.0;
+    AnimationPhase blueMenuPhase = AnimationPhase::None;
+    bool wasBlueMenuHovered = false;
+
+    float yellowMenuRotation = 0.0;
+    AnimationPhase yellowMenuPhase = AnimationPhase::None;
+    bool wasYellowMenuHovered = false;
+
     bool playclicked = false;
     bool guideclicked = false;
     bool creditsclicked = false;
+
+    bool redmenuclicked = false;
+    bool bluemenuclicked = false;
+    bool yellowmenuclicked = false;
 
     while (window.isOpen())
     {
@@ -94,7 +155,6 @@ void Window::run()
         bool isPlayHovered = playButton.getGlobalBounds().contains(mouseWorld);
         if (isPlayHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             playclicked = true;
-            window.close();
         }
 
         if (isPlayHovered && !wasPlayHovered && playPhase == AnimationPhase::None) {
@@ -107,7 +167,6 @@ void Window::run()
         bool isGuideHovered = guideButton.getGlobalBounds().contains(mouseWorld);
         if (isGuideHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             guideclicked = true;
-            window.close();
         }
 
         if (isGuideHovered && !wasGuideHovered && guidePhase == AnimationPhase::None) {
@@ -121,13 +180,48 @@ void Window::run()
         bool isCreditsHovered = creditsButton.getGlobalBounds().contains(mouseWorld);
         if (isCreditsHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             creditsclicked = true;
-            window.close();
         }
 
         if (isCreditsHovered && !wasCreditsHovered && creditsPhase == AnimationPhase::None) {
             creditsPhase = AnimationPhase::RotateForward;
         }
         wasCreditsHovered = isCreditsHovered;
+
+        // -------------------------------------------------------------------------
+
+        bool isRedMenuHovered = redMenuButton.getGlobalBounds().contains(mouseWorld);
+        if (isRedMenuHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            redmenuclicked = true;
+        }
+
+        if (isRedMenuHovered && !wasRedMenuHovered && redMenuPhase == AnimationPhase::None) {
+            redMenuPhase = AnimationPhase::RotateForward;
+        }
+        wasRedMenuHovered = isRedMenuHovered;
+
+        // -------------------------------------------------------------------------
+
+        bool isBlueMenuHovered = blueMenuButton.getGlobalBounds().contains(mouseWorld);
+        if (isBlueMenuHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            bluemenuclicked = true;
+        }
+
+        if (isBlueMenuHovered && !wasBlueMenuHovered && blueMenuPhase == AnimationPhase::None) {
+            blueMenuPhase = AnimationPhase::RotateForward;
+        }
+        wasBlueMenuHovered = isBlueMenuHovered;
+
+        // -------------------------------------------------------------------------
+
+        bool isYellowMenuHovered = yellowMenuButton.getGlobalBounds().contains(mouseWorld);
+        if (isYellowMenuHovered && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            yellowmenuclicked = true;
+        }
+
+        if (isYellowMenuHovered && !wasYellowMenuHovered && yellowMenuPhase == AnimationPhase::None) {
+            yellowMenuPhase = AnimationPhase::RotateForward;
+        }
+        wasYellowMenuHovered = isYellowMenuHovered;
 
         // -------------------------------------------------------------------------
 
@@ -219,82 +313,157 @@ void Window::run()
 
         // -------------------------------------------------------------------------
 
+        switch (redMenuPhase) {
+        case AnimationPhase::RotateForward:
+            redMenuRotation += rotationSpeed;
+            if (redMenuRotation >= 1.0) {
+                redMenuRotation = 1.0;
+                redMenuPhase = AnimationPhase::RotateBackward;
+            }
+            break;
+        case AnimationPhase::RotateBackward:
+            redMenuRotation -= rotationSpeed;
+            if (redMenuRotation <= -2.0) {
+                redMenuRotation = -2.0;
+                redMenuPhase = AnimationPhase::ReturnToCenter;
+            }
+            break;
+        case AnimationPhase::ReturnToCenter:
+            redMenuRotation += rotationSpeed;
+            if (redMenuRotation >= 0.0) {
+                redMenuRotation = 0.0;
+                redMenuPhase = AnimationPhase::None;
+            }
+            break;
+        default: break;
+        }
+        redMenuButton.setRotation(sf::degrees(redMenuRotation));
+
+        // -------------------------------------------------------------------------
+
+        switch (blueMenuPhase) {
+        case AnimationPhase::RotateForward:
+            blueMenuRotation += rotationSpeed;
+            if (blueMenuRotation >= 1.0) {
+                blueMenuRotation = 1.0;
+                blueMenuPhase = AnimationPhase::RotateBackward;
+            }
+            break;
+        case AnimationPhase::RotateBackward:
+            blueMenuRotation -= rotationSpeed;
+            if (blueMenuRotation <= -2.0) {
+                blueMenuRotation = -2.0;
+                blueMenuPhase = AnimationPhase::ReturnToCenter;
+            }
+            break;
+        case AnimationPhase::ReturnToCenter:
+            blueMenuRotation += rotationSpeed;
+            if (blueMenuRotation >= 0.0) {
+                blueMenuRotation = 0.0;
+                blueMenuPhase = AnimationPhase::None;
+            }
+            break;
+        default: break;
+        }
+        blueMenuButton.setRotation(sf::degrees(blueMenuRotation));
+
+        // -------------------------------------------------------------------------
+
+        switch (yellowMenuPhase) {
+        case AnimationPhase::RotateForward:
+            yellowMenuRotation += rotationSpeed;
+            if (yellowMenuRotation >= 1.0) {
+                yellowMenuRotation = 1.0;
+                yellowMenuPhase = AnimationPhase::RotateBackward;
+            }
+            break;
+        case AnimationPhase::RotateBackward:
+            yellowMenuRotation -= rotationSpeed;
+            if (yellowMenuRotation <= -2.0) {
+                yellowMenuRotation = -2.0;
+                yellowMenuPhase = AnimationPhase::ReturnToCenter;
+            }
+            break;
+        case AnimationPhase::ReturnToCenter:
+            yellowMenuRotation += rotationSpeed;
+            if (yellowMenuRotation >= 0.0) {
+                yellowMenuRotation = 0.0;
+                yellowMenuPhase = AnimationPhase::None;
+            }
+            break;
+        default: break;
+        }
+        yellowMenuButton.setRotation(sf::degrees(yellowMenuRotation));
+
+        // -------------------------------------------------------------------------
+
         window.clear(background);
 
-        window.draw(title);
+        switch (currentScreen)
+        {
+        case Screen::Menu:
+            window.draw(title);
 
-        window.draw(playButton);
-        window.draw(guideButton);
-        window.draw(creditsButton);
-
-        window.display();
-    }
-
-
-    if (playclicked) {
-        sf::RenderWindow playwindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
-        sf::Color background(255, 200, 255);
-        window.setFramerateLimit(60);
-        sf::Texture arrowTexture;
-        arrowTexture.loadFromFile("../assets/arrow.png");
-
-        sf::Sprite arrow(arrowTexture);
-
-        arrow.setScale(sf::Vector2f(0.1f, 0.1f));
-
-        arrow.setOrigin(sf::Vector2f(arrowTexture.getSize().x * 0.5, arrowTexture.getSize().y * 1));
-
-        arrow.setPosition(sf::Vector2f(514.f, 384.f));
-
-        float arrowRotation = 0.0;
-        float rotationSpeed = .07;
-        AnimationPhase arrowPhase = AnimationPhase::None;
-        bool wasRightPressed = false;
-        while (playwindow.isOpen()) {
-            while (const std::optional event = playwindow.pollEvent()) {
-                if (event->is<sf::Event::Closed>())
-                    playwindow.close();
-            }
-            bool isRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right);
-             if (isRightPressed)  {
-                 arrowRotation += rotationSpeed;
-                    std::cout << "sdsd";
+            window.draw(playButton);
+            window.draw(guideButton);
+            window.draw(creditsButton);
+            break;
+        case Screen::Play:
+            while (objects[0]->state == gameState::Running)
+            {
+                window.clear(background);
+                std::vector<std::unique_ptr<Object>> newObjects;
+                for (size_t i = 0; i < objects.size(); ++i)
+                {
+                    objects[i]->update(newObjects);
                 }
-             bool isLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left);
-             if (isLeftPressed) {
-                 arrowRotation -= rotationSpeed;
-             }
-            wasRightPressed = isRightPressed;
-            
-
-            arrow.setRotation(sf::degrees(arrowRotation));
-            playwindow.clear(background);
-            playwindow.draw(arrow);
-            playwindow.display();
-        }
-    }
-    if (guideclicked) {
-        sf::RenderWindow guidewindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
-        while (guidewindow.isOpen()) {
-            while (const std::optional event = guidewindow.pollEvent()) {
-                if (event->is<sf::Event::Closed>())
-                    guidewindow.close();
+                for (auto& obj : newObjects)
+                {
+                    objects.push_back(std::move(obj));
+                }
+                for (size_t i = 0; i < objects.size(); ++i)
+                {
+                    if (objects[i]->objSprite)
+                        window.draw(*(objects[i]->objSprite));
+                }
+                window.display();
             }
-
-            guidewindow.clear(background);
-            guidewindow.display();
+            currentScreen = Screen::GameOver;
+            break;
+        case Screen::Guide:
+            window.draw(blueMenuButton);
+            break;
+        case Screen::Credits:
+            window.draw(yellowMenuButton); 
+            break;
+        case Screen::GameOver:
+            objects[0]->state = gameState::Running;
+            window.draw(redMenuButton);
+            break;
         }
-    }
-    if (creditsclicked) {
-        sf::RenderWindow creditswindow(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
-        while (creditswindow.isOpen()) {
-            while (const std::optional event = creditswindow.pollEvent()) {
-                if (event->is<sf::Event::Closed>())
-                    creditswindow.close();
-            }
+        
+        window.display();
 
-            creditswindow.clear(background);
-            creditswindow.display();
+        if (playclicked) {
+            currentScreen = Screen::Play;
+            playclicked = false;
+        }
+        if (guideclicked) 
+        {
+            currentScreen = Screen::Guide;
+            guideclicked = false;
+        }
+        if (creditsclicked) 
+        {
+            currentScreen = Screen::Credits;
+            creditsclicked = false;
+        }
+        if (redmenuclicked || bluemenuclicked || yellowmenuclicked)
+        {
+            currentScreen = Screen::Menu;
+            redmenuclicked = false;
+            bluemenuclicked = false;
+            yellowmenuclicked = false;
         }
     }
 }
