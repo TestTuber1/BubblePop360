@@ -91,11 +91,13 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 		ball1->velocity.x = 0;
 		ball1->velocity.y = 0;
 		ball1->isMoving = false;
+		ball1->isPlayer = false;
 		ball1->justSpawned = false;
 
 		ball2->velocity.x = 0;
 		ball2->velocity.y = 0;
 		ball2->isMoving = false;
+		ball2->isPlayer = false;
 		ball2->justSpawned = false;
 	}
 }
@@ -127,7 +129,7 @@ void Ball::checkBallColor(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>
 			objects[0]->ballCount += 1;
 		}
 
-		if ((!(ball1->isPlayer) && (ball2->isPlayer)) && (ball1->ballColor == ball2->ballColor))
+		else if ((!(ball1->isPlayer) && (ball2->isPlayer)) && (ball1->ballColor == ball2->ballColor))
 		{
 			ball1->isPlayer = true;
 

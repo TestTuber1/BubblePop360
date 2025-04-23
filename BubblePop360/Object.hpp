@@ -14,7 +14,7 @@ public:
 	bool justSpawned;
 	bool isCollidable;
 	bool isPlayer;
-	enum Color ballColor;
+	int ballColor;
 
 	// for the player
 	double points;

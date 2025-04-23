@@ -16,13 +16,6 @@ using std::string;
 using std::cout;
 using std::vector;
 
-enum Color
-{
-	Red,
-	Blue,
-	Yellow
-};
-
 enum gameState
 {
 	Running,

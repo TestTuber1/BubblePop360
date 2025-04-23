@@ -18,36 +18,6 @@ private:
 public:
 	void shoot(float arrowRotation);
 
-	Ball() 
-	{
-		isPlayer = false;
-		isMoving = false;
-
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> distr(1, 3);
-
-		int random_color = distr(gen);
-		switch (random_color)
-		{
-		case 1:
-			ballColor = Color::Red;
-			objSprite = sf::Sprite(redBallTexture);
-			break;
-		case 2:
-			ballColor = Color::Blue;
-			objSprite = sf::Sprite(blueBallTexture);
-			break;
-		case 3:
-			ballColor = Color::Yellow;
-			objSprite = sf::Sprite(yellowBallTexture);
-			break;
-		}
-
-		objSprite->setScale(sf::Vector2f(0.25f, 0.25f));
-		objSprite->setPosition(sf::Vector2f(464.f, 384.f));
-	}
-
 	Ball(float arrowRotation)
 	{
 		isPlayer = false;
@@ -61,18 +31,16 @@ public:
 		std::uniform_int_distribution<> distr(1, 3);
 
 		int random_color = distr(gen);
-		switch (random_color)
+		ballColor = random_color;
+		switch (ballColor)
 		{
 		case 1:
-			ballColor = Color::Red;
 			objSprite = sf::Sprite(redBallTexture);
 			break;
 		case 2:
-			ballColor = Color::Blue;
 			objSprite = sf::Sprite(blueBallTexture);
 			break;
 		case 3:
-			ballColor = Color::Yellow;
 			objSprite = sf::Sprite(yellowBallTexture);
 			break;
 		}
