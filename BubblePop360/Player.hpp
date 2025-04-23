@@ -18,6 +18,7 @@ public:
 		arrowTexture.loadFromFile("../assets/arrow.png");
 		objSprite= sf::Sprite(arrowTexture);
 		arrowRotation = 0.0;
+		points = 0.0;
 	}
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
 };

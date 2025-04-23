@@ -4,6 +4,18 @@ void Window::run()
 {
     Ball::loadTextures();
 
+    sf::Font font;
+    if (!font.openFromFile("../assets/KronaOne-Regular.ttf"))
+        cout << "cant open font";
+    string something = "";
+    unsigned int characterSize = 42;
+    sf::Text pointsDisplay(font, something, characterSize);
+    pointsDisplay.setFont(font);
+    pointsDisplay.setCharacterSize(characterSize);
+    sf::Color pointsColor(30, 30, 36);
+    pointsDisplay.setFillColor(pointsColor);
+    pointsDisplay.setPosition(sf::Vector2f(510.f, 1.f));
+
     vector<std::unique_ptr<Object>> objects;
     objects.push_back(std::make_unique<Player>());
     objects.push_back(std::make_unique<Ball>(1.f));
@@ -453,6 +465,8 @@ void Window::run()
                     if (objects[i]->objSprite)
                         window.draw(*(objects[i]->objSprite));
                 }
+                pointsDisplay.setString(std::to_string((int)(objects[0]->points)));
+                window.draw(pointsDisplay);
                 while (const std::optional event = window.pollEvent())
                 {
                     if (event->is<sf::Event::Closed>())
@@ -471,6 +485,8 @@ void Window::run()
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:
+            pointsDisplay.setString(std::to_string((int)(objects[0]->points)));
+            window.draw(pointsDisplay);
             window.draw(redMenuButton);
             objects.clear();
             objects.push_back(std::make_unique<Player>());
