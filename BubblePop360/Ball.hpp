@@ -9,8 +9,9 @@ private:
 	static sf::Texture yellowBallTexture;
 
 	void move();
-	sf::Vector2f velocity;
+
 	float direction;
+	sf::Vector2f pos;
 public:
 	bool isPlayer;
 	enum Color ballColor;
@@ -18,6 +19,7 @@ public:
 	Ball() 
 	{
 		isPlayer = false;
+		isMoving = false;
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
@@ -47,6 +49,7 @@ public:
 	Ball(float arrowRotation)
 	{
 		isPlayer = true;
+		isMoving = true;
 		direction = arrowRotation * (pi / 180.0f);
 
 		std::random_device rd;
