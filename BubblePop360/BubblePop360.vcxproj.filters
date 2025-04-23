@@ -87,5 +87,8 @@
     <Image Include="..\assets\yellowBall.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\assets\instructions.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

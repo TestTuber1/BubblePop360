@@ -25,6 +25,19 @@ void Window::run()
     sf::Vector2f titlePos(xTitlePos, yTitlePos);
     title.move(titlePos);
 
+    sf::Texture instructionTexture;
+    instructionTexture.loadFromFile("../assets/instructions.png");
+
+    sf::Sprite instructions(instructionTexture);
+
+    float xinstructionScale = 0.25, yinstructionScale = 0.25;
+    sf::Vector2f instructionScale(xinstructionScale, yinstructionScale);
+    instructions.scale(instructionScale);
+
+    float xInstructionPos = 0, yInstructionPos = -5;
+    sf::Vector2f instructionPos(xInstructionPos, yInstructionPos);
+    instructions.move(instructionPos);
+
     // -------------------------------------------------------------------------
 
     sf::Texture playTexture;
@@ -75,7 +88,7 @@ void Window::run()
 
     redMenuButton.scale(buttonScale);
 
-    float xRedMenuPos = 402, yRedMenuPos = 575;
+    float xRedMenuPos = 402, yRedMenuPos = 625;
     sf::Vector2f redMenuPos(xRedMenuPos, yRedMenuPos);
     redMenuButton.move(redMenuPos);
 
@@ -88,7 +101,7 @@ void Window::run()
 
     blueMenuButton.scale(buttonScale);
 
-    float xBlueMenuPos = 402, yBlueMenuPos = 575;
+    float xBlueMenuPos = 402, yBlueMenuPos = 625;
     sf::Vector2f blueMenuPos(xBlueMenuPos, yBlueMenuPos);
     blueMenuButton.move(blueMenuPos);
 
@@ -101,7 +114,7 @@ void Window::run()
 
     yellowMenuButton.scale(buttonScale);
 
-    float xYellowMenuPos = 402, yYellowMenuPos = 575;
+    float xYellowMenuPos = 402, yYellowMenuPos = 625;
     sf::Vector2f yellowMenuPos(xYellowMenuPos, yYellowMenuPos);
     yellowMenuButton.move(yellowMenuPos);
 
@@ -431,6 +444,7 @@ void Window::run()
             currentScreen = Screen::GameOver;
             break;
         case Screen::Guide:
+            window.draw(instructions);
             window.draw(blueMenuButton);
             break;
         case Screen::Credits:
