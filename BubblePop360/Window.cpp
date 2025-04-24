@@ -2,6 +2,10 @@
 
 void Window::run()
 {
+    sf::Music music("../assets/song.ogg");
+    music.setLoopPoints({ sf::seconds(10), sf::seconds(244) });
+    music.play();
+
     Ball::loadTextures();
     double points = 0.0;
 
@@ -181,9 +185,6 @@ void Window::run()
 
     while (window.isOpen())
     {
-        /*sf::Music music("../assets/song.ogg");
-        music.play();
-        music.setLoopPoints({ sf::seconds(5), sf::seconds(244)});*/
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
