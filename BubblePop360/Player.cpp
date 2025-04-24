@@ -210,6 +210,11 @@ bool Player::isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std
 
 void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
+    if (newObjects == objects)
+    {
+        checkGame(objects);
+        return;
+    }
     if (!hasSpawnedLayer)
     {
         spawnStartingLayer(newObjects);

@@ -3,6 +3,8 @@
 
 class Test
 {
+	vector<std::unique_ptr<Object>> testObjects;
+
 	bool testSpawn();
 	bool testScore();
 	bool testWave();

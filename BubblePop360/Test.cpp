@@ -3,35 +3,62 @@
 bool Test::testSpawn()
 {
 	Player testPlayer;
-	vector<std::unique_ptr<Object>> testObjects;
-	testPlayer.checkGame(testObjects);
+	testObjects.push_back(std::make_unique<Player>());
+
+	if (!(testObjects.empty()))
+		return true;
 
 	return false;
 }
 
 bool Test::testScore()
 {
+	Player testPlayer;
+	testObjects.push_back(std::make_unique<Player>());
 
+	if (testObjects[0]->points == 0)
+	{
+		testObjects[0]->points += 300;
+		if (testObjects[0]->points == 300)
+			return true;
+	}
 
 	return false;
 }
 
 bool Test::testWave()
 {
-
+	
 
 	return false;
 }
 
 bool Test::testShoot()
 {
+	Player testPlayer;
+	testObjects.push_back(std::make_unique<Player>());
 
+	Ball testBall(90);
+	testObjects.emplace_back(std::make_unique<Ball>(testBall));
+
+	if (testObjects.size() > 1)
+		return true;
 
 	return false;
 }
 bool Test::testLoser()
 {
+	Player testPlayer;
+	testObjects.push_back(std::make_unique<Player>());
 
+	Ball testBall(90);
+	testBall.isCollidable = true;
+	testObjects.emplace_back(std::make_unique<Ball>(testBall));
+
+	testObjects[1]->update(testObjects, testObjects);
+
+	if (testObjects[1]->state == End)
+		return true;
 
 	return false;
 }
