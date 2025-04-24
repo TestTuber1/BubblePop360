@@ -15,6 +15,7 @@ public:
 	bool isCollidable;
 	bool isPlayer;
 	int ballColor;
+	bool readyToJoinVector;
 
 	// for the player
 	double points;

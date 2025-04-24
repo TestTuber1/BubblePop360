@@ -33,8 +33,14 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
         auto newBall = std::make_unique<Ball>(arrowRotation - 90);
         if (newBall->shootable)
         {
+            for (auto& obj : newObjects)
+            {
+                if (!(obj->readyToJoinVector))
+                    objects.push_back(std::move(obj));
+            }
             objects[objects.size() - 1]->shoot(arrowRotation - 90);
             newObjects.emplace_back(std::move(newBall));
+            newObjects[newObjects.size() - 1]->readyToJoinVector == false;
         }
 
         shootsound.play();
