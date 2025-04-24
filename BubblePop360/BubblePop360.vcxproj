@@ -177,6 +177,9 @@
   <ItemGroup>
     <Font Include="..\assets\KronaOne-Regular.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shootsound.ogg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
