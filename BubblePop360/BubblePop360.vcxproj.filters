@@ -99,4 +99,7 @@
       <Filter>Resource Files</Filter>
     </Font>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shootsound.ogg" />
+  </ItemGroup>
 </Project>

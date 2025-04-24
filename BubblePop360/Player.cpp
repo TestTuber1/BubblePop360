@@ -41,7 +41,7 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
             spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, texture);
             this->shotCounter = 0;
         }
-        std::cout << "asfsd";
+        //std::cout << "asfsd";
 
         shootsound.play();
 
