@@ -121,18 +121,18 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(x, 0.f));
         ball->velocity = sf::Vector2f(0.f, 0.f);
-        ball->isCollidable = true; 
+        ball->isCollidable = true;
         ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Right edge (top to bottom)
-    for (float y = ballSize; y <= height - ballSize; y += ballSize)
+    // Right edge (top to bottom) — skip top and bottom corners
+    for (float y = ballSize; y <= height - ballSize * 2; y += ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(width - ballSize, y));
         ball->velocity = sf::Vector2f(0.f, 0.f);
-        ball->isCollidable = true; 
+        ball->isCollidable = true;
         ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
@@ -143,18 +143,18 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(x, height - ballSize));
         ball->velocity = sf::Vector2f(0.f, 0.f);
-        ball->isCollidable = true; 
+        ball->isCollidable = true;
         ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Left edge (bottom to top)
-    for (float y = height - ballSize; y >= ballSize; y -= ballSize)
+    // Left edge (bottom to top) — skip bottom and top corners
+    for (float y = height - ballSize * 2; y >= ballSize; y -= ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(0.f, y));
         ball->velocity = sf::Vector2f(0.f, 0.f);
-        ball->isCollidable = true; 
+        ball->isCollidable = true;
         ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
