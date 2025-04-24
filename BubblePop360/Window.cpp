@@ -21,6 +21,10 @@ void Window::run()
     sf::Color pointsColor(30, 30, 36);
     pointsDisplay.setFillColor(pointsColor);
 
+    sf::Text finalScore(font, "Final Score", 52);
+    finalScore.setFillColor(pointsColor);
+    finalScore.setPosition(sf::Vector2f(325.f, 250.f));
+
     vector<std::unique_ptr<Object>> objects;
     objects.push_back(std::make_unique<Player>());
     objects.push_back(std::make_unique<Ball>(1.f));
@@ -29,6 +33,10 @@ void Window::run()
     sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
     sf::Color background(252, 247, 255);
     window.setFramerateLimit(60);
+
+    sf::FloatRect bounds = pointsDisplay.getLocalBounds();
+    float containerWidth = window.getSize().x;
+    float offset = (containerWidth - bounds.size.x) / 2.0f;
 
     sf::Texture titleTexture;
     titleTexture.loadFromFile("../assets/title.png");
@@ -472,9 +480,9 @@ void Window::run()
                 }
                 pointsDisplay.setString(std::to_string((int)(objects[0]->points)));
                 points = objects[0]->points;
-                sf::FloatRect bounds = pointsDisplay.getLocalBounds();
-                float containerWidth = window.getSize().x;
-                float offset = (containerWidth - bounds.size.x) / 2.0f;
+                bounds = pointsDisplay.getLocalBounds();
+                containerWidth = window.getSize().x;
+                offset = (containerWidth - bounds.size.x) / 2.0f;
                 pointsDisplay.setPosition(sf::Vector2f(offset, 1.f));
                 window.draw(pointsDisplay);
                 while (const std::optional event = window.pollEvent())
@@ -495,6 +503,8 @@ void Window::run()
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:
+            window.draw(finalScore);
+            pointsDisplay.setPosition(sf::Vector2f(offset, 340.f));
             pointsDisplay.setString(std::to_string((int)(points)));
             window.draw(pointsDisplay);
             window.draw(redMenuButton);

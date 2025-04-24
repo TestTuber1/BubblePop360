@@ -1,5 +1,7 @@
 #include "Player.hpp"
 
+bool Player::noMovement = false;
+
 void Player::movement()
 {
     objSprite->setScale(sf::Vector2f(0.1f, 0.1f));
@@ -27,19 +29,18 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
     static bool spacePressedLastFrame = false;
 
     bool isSpacePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space);
-    if (!spacePressedLastFrame && isSpacePressed)
+    if (!spacePressedLastFrame && isSpacePressed && noMovement)
     {
         objects[objects.size() - 1]->shoot(arrowRotation - 90);
         newObjects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
 
         this->shotCounter++;
-        if (this->shotCounter >= 6)
+        if ((this->shotCounter >= 6) && noMovement)
         {
             this->borderLayerCount++;
             spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, objects);
             this->shotCounter = 0;
         }
-        //std::cout << "asfsd";
 
         shootsound.play();
 
