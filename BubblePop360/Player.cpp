@@ -77,11 +77,15 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
         auto topBall = std::make_unique<Ball>(0.0f);
         topBall->objSprite->setPosition(sf::Vector2f(x, offset));
         topBall->isBorderBall = true;
+        topBall->isCollidable = true;
+
         newObjects.push_back(std::move(topBall));
 
         auto bottomBall = std::make_unique<Ball>(0.0f);
         bottomBall->objSprite->setPosition(sf::Vector2f(x, screenHeight - ballSize - offset));
         bottomBall->isBorderBall = true;
+        bottomBall->isCollidable = true;
+
         newObjects.push_back(std::move(bottomBall));
     }
 
@@ -92,11 +96,15 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
         auto leftBall = std::make_unique<Ball>(0.0f);
         leftBall->objSprite->setPosition(sf::Vector2f(offset, y));
         leftBall->isBorderBall = true;
+        leftBall->isCollidable = true;
+
         newObjects.push_back(std::move(leftBall));
 
         auto rightBall = std::make_unique<Ball>(0.0f);
         rightBall->objSprite->setPosition(sf::Vector2f(screenWidth - ballSize - offset, y));
         rightBall->isBorderBall = true;
+        rightBall->isCollidable = true;
+
         newObjects.push_back(std::move(rightBall));
     }
 }
@@ -113,6 +121,8 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(x, 0.f));
         ball->velocity = sf::Vector2f(0.f, 0.f);
+        ball->isCollidable = true; 
+        ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -122,6 +132,8 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(width - ballSize, y));
         ball->velocity = sf::Vector2f(0.f, 0.f);
+        ball->isCollidable = true; 
+        ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -131,6 +143,8 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(x, height - ballSize));
         ball->velocity = sf::Vector2f(0.f, 0.f);
+        ball->isCollidable = true; 
+        ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -140,6 +154,8 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         auto ball = std::make_unique<Ball>(0.f);
         ball->objSprite->setPosition(sf::Vector2f(0.f, y));
         ball->velocity = sf::Vector2f(0.f, 0.f);
+        ball->isCollidable = true; 
+        ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
 }
@@ -156,5 +172,12 @@ void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uni
     spawnBall(newObjects, objects);
 
     checkGame(objects);
+
+    // Merge newObjects into objects so they can collide
+    for (auto& obj : newObjects) 
+    {
+        objects.push_back(std::move(obj));
+    }
+    newObjects.clear();
 }
 	

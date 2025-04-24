@@ -28,7 +28,6 @@ public:
 
 		arrowTexture.loadFromFile("../assets/arrow.png");
 		shootsound.openFromFile("../assets/shootsound.ogg");
-		`
 		objSprite= sf::Sprite(arrowTexture);
 		arrowRotation = 0.0;
 		points = 0.0;
