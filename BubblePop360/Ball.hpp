@@ -16,6 +16,8 @@ private:
 	float direction;
 	sf::Vector2f pos;
 public:
+	bool isBorderBall = false;
+
 	void shoot(float arrowRotation);
 
 	Ball(float arrowRotation)
