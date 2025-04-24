@@ -39,12 +39,7 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 	Ball* ball1 = dynamic_cast<Ball*>(obj1.get());
 	Ball* ball2 = dynamic_cast<Ball*>(obj2.get());
 
-	if (!ball1 || !ball2) 
-	{
-		return;
-	}
-
-	if (!(ball1->isCollidable) || !(ball2->isCollidable))
+	if (!ball1 || !ball2 || !ball1->isCollidable || !ball2->isCollidable)
 		return;
 
 	float dx = ball1->objSprite->getPosition().x - ball2->objSprite->getPosition().x;
@@ -56,37 +51,23 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 	{
 		if ((ball1->isPlayer == true || ball2->isPlayer == true) && (ball1->ballColor == ball2->ballColor))
 		{
-			ball1->isPlayer = true;
-			ball2->isPlayer = true;
+			Ball* base = ball1->isPlayer ? ball1 : ball2;
+			std::vector<Ball*> connectedGroup;
+			connectedBalls(base, objects, connectedGroup);
 
-			objects[0]->ballCount += 2;
-
-			for (size_t i = 0; i < objects.size(); ++i)
+			if (connectedGroup.size() >= 3)
 			{
-				for (size_t j = i + 1; j < objects.size(); ++j)
+				objects[0]->points += (100.0 * connectedGroup.size() * (1 + (connectedGroup.size() * 0.1 - 0.3)));
+
+				for (auto it = objects.begin(); it != objects.end(); )
 				{
-					checkBallColor(objects[i], objects[j], objects);
+					Ball* b = dynamic_cast<Ball*>(it->get());
+					if (std::find(connectedGroup.begin(), connectedGroup.end(), b) != connectedGroup.end())
+						it = objects.erase(it);
+					else
+						++it;
 				}
 			}
-
-			if (objects[0]->ballCount >= 3)
-			{
-				objects[0]->points += (100.0 * (double)(objects[0]->ballCount) * (1 + (((double)(objects[0]->ballCount) * 0.1) - 0.3)));
-				
-				for (size_t i = objects.size(); i-- > 0;)
-				{
-					if (objects[i]->isPlayer)
-						objects.erase(objects.begin() + i);
-				}
-			}
-			else
-			{
-				for (size_t i = objects.size(); i-- > 0;)
-				{
-					objects[i]->isPlayer = false;
-				}
-			}
-			ballCount = 0;
 		}
 		ball1->velocity.x = 0;
 		ball1->velocity.y = 0;
@@ -102,38 +83,36 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 	}
 }
 
-void Ball::checkBallColor(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects)
+void Ball::connectedBalls(Ball* start, vector<std::unique_ptr<Object>>& objects, std::vector<Ball*>& group)
 {
-	Ball* ball1 = dynamic_cast<Ball*>(obj1.get());
-	Ball* ball2 = dynamic_cast<Ball*>(obj2.get());
+	std::queue<Ball*> toVisit; // queue of balls that will get checked
+	std::unordered_set<Ball*> visited; // set of balls that have already been checked and have the same color as the starting ball
 
-	if (!ball1 || !ball2)
+	toVisit.push(start);
+	visited.insert(start);
+
+	while (!toVisit.empty())
 	{
-		return;
-	}
+		Ball* current = toVisit.front();
+		toVisit.pop();
+		group.push_back(current);
 
-	if (!(ball1->isCollidable) || !(ball2->isCollidable))
-		return;
-
-	float dx = ball1->objSprite->getPosition().x - ball2->objSprite->getPosition().x;
-	float dy = ball1->objSprite->getPosition().y - ball2->objSprite->getPosition().y;
-	float distanceSquared = dx * dx + dy * dy;
-	float radiusSquared = (32 + 32) * (32 + 32);
-
-	if (distanceSquared <= radiusSquared)
-	{
-		if ((ball1->isPlayer && !(ball2->isPlayer)) && (ball1->ballColor == ball2->ballColor))
+		for (auto& obj : objects)
 		{
-			ball2->isPlayer = true;
-			
-			objects[0]->ballCount += 1;
-		}
+			Ball* neighbor = dynamic_cast<Ball*>(obj.get());
+			if (!neighbor || visited.count(neighbor) || neighbor->ballColor != start->ballColor)
+				continue;
 
-		else if ((!(ball1->isPlayer) && (ball2->isPlayer)) && (ball1->ballColor == ball2->ballColor))
-		{
-			ball1->isPlayer = true;
+			float dx = current->objSprite->getPosition().x - neighbor->objSprite->getPosition().x;
+			float dy = current->objSprite->getPosition().y - neighbor->objSprite->getPosition().y;
+			float distanceSquared = dx * dx + dy * dy;
+			float radiusSquared = (32 + 32) * (32 + 32);
 
-			objects[0]->ballCount += 1;
+			if (distanceSquared <= radiusSquared)
+			{
+				toVisit.push(neighbor);
+				visited.insert(neighbor);
+			}
 		}
 	}
 }

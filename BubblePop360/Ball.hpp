@@ -11,8 +11,8 @@ private:
 
 	void move();
 	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects);
-	void checkBallColor(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects);
-
+	void connectedBalls(Ball* start, vector<std::unique_ptr<Object>>& objects, std::vector<Ball*>& group);
+	// collects the connected balls for checkBallCollision to go through
 	float direction;
 	sf::Vector2f pos;
 public:
