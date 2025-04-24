@@ -22,7 +22,6 @@ void Player::movement()
 
     objSprite->setRotation(sf::degrees(arrowRotation));
 }
-
 void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
     static bool spacePressedLastFrame = false;
@@ -42,6 +41,10 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
             spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, texture);
             this->shotCounter = 0;
         }
+        std::cout << "asfsd";
+
+        shootsound.play();
+
     }
     spacePressedLastFrame = isSpacePressed;
 }
