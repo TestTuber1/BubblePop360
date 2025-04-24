@@ -180,6 +180,9 @@ void Window::run()
 
     while (window.isOpen())
     {
+        sf::Music music("../assets/song.ogg");
+        music.play();
+        music.setLoopPoints({ sf::seconds(5), sf::seconds(244)});
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
