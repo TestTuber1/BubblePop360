@@ -3,10 +3,12 @@
 void Window::run()
 {
     Ball::loadTextures();
+    double points = 0.0;
 
     sf::Font font;
     if (!font.openFromFile("../assets/KronaOne-Regular.ttf"))
-        cout << "cant open font";
+    {
+    }
     string something = "";
     unsigned int characterSize = 42;
     sf::Text pointsDisplay(font, something, characterSize);
@@ -14,7 +16,6 @@ void Window::run()
     pointsDisplay.setCharacterSize(characterSize);
     sf::Color pointsColor(30, 30, 36);
     pointsDisplay.setFillColor(pointsColor);
-    pointsDisplay.setPosition(sf::Vector2f(510.f, 1.f));
 
     vector<std::unique_ptr<Object>> objects;
     objects.push_back(std::make_unique<Player>());
@@ -180,9 +181,9 @@ void Window::run()
 
     while (window.isOpen())
     {
-        sf::Music music("../assets/song.ogg");
+        /*sf::Music music("../assets/song.ogg");
         music.play();
-        music.setLoopPoints({ sf::seconds(5), sf::seconds(244)});
+        music.setLoopPoints({ sf::seconds(5), sf::seconds(244)});*/
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -469,6 +470,11 @@ void Window::run()
                         window.draw(*(objects[i]->objSprite));
                 }
                 pointsDisplay.setString(std::to_string((int)(objects[0]->points)));
+                points = objects[0]->points;
+                sf::FloatRect bounds = pointsDisplay.getLocalBounds();
+                float containerWidth = window.getSize().x;
+                float offset = (containerWidth - bounds.size.x) / 2.0f;
+                pointsDisplay.setPosition(sf::Vector2f(offset, 1.f));
                 window.draw(pointsDisplay);
                 while (const std::optional event = window.pollEvent())
                 {
@@ -488,7 +494,7 @@ void Window::run()
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:
-            pointsDisplay.setString(std::to_string((int)(objects[0]->points)));
+            pointsDisplay.setString(std::to_string((int)(points)));
             window.draw(pointsDisplay);
             window.draw(redMenuButton);
             objects.clear();
