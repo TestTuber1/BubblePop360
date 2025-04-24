@@ -18,7 +18,7 @@ Jason Taylor - Lab Section 2
 
 Ethan Eichenberger - Lab Section 7
 
-Matthew Jewell - Lab Section 
+Matthew Jewell - Lab Section 6
 
 Trevys Okamura - Lab Section 
 

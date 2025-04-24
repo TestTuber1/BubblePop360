@@ -81,6 +81,7 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 		ball2->isPlayer = false;
 		ball2->justSpawned = false;
 	}
+
 }
 
 void Ball::connectedBalls(Ball* start, vector<std::unique_ptr<Object>>& objects, std::vector<Ball*>& group)
@@ -129,10 +130,14 @@ void Ball::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uniqu
 {
 	if (!isMoving && !isPlayer)
 		return;
-	move();
+	if (shootable)
+	{
+		move();
+	}
 
 	for (size_t i = 0; i < objects.size(); ++i) 
 	{
+		if (!isMoving) isPlayer = false;
 		for (size_t j = i + 1; j < objects.size(); ++j) 
 		{
 			checkBallCollision(objects[i], objects[j], objects);

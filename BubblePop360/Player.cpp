@@ -29,9 +29,12 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
     bool isSpacePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space);
     if (!spacePressedLastFrame && isSpacePressed)
     {
-        objects[objects.size() - 1]->shoot(arrowRotation - 90);
-        newObjects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
-
+        auto newBall = std::make_unique<Ball>(arrowRotation - 90);
+        if (newBall->shootable)
+        {
+            objects[objects.size() - 1]->shoot(arrowRotation - 90);
+            newObjects.emplace_back(std::move(newBall));
+        }
         this->shotCounter++;
         if (this->shotCounter >= 6)
         {
@@ -78,6 +81,8 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
             topBall->objSprite->setPosition(topPos);
             topBall->isBorderBall = true;
             topBall->isCollidable = true;
+            topBall->isPlayer = false;
+            topBall->shootable = false;
             newObjects.push_back(std::move(topBall));
         }
 
@@ -88,6 +93,8 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
             bottomBall->objSprite->setPosition(bottomPos);
             bottomBall->isBorderBall = true;
             bottomBall->isCollidable = true;
+            bottomBall->isPlayer = false;
+            bottomBall->shootable = false;
             newObjects.push_back(std::move(bottomBall));
         }
     }
@@ -96,11 +103,14 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
     for (float y = offset + ballSize; y < screenHeight - ballSize - offset; y += ballSize)
     {
         sf::Vector2f leftPos(offset, y);
-        if (isSpaceFree(leftPos, ballSize, objects, newObjects)) {
+        if (isSpaceFree(leftPos, ballSize, objects, newObjects)) 
+        {
             auto leftBall = std::make_unique<Ball>(0.0f);
             leftBall->objSprite->setPosition(leftPos);
             leftBall->isBorderBall = true;
             leftBall->isCollidable = true;
+            leftBall->isPlayer = false;
+            leftBall->shootable = false;
             newObjects.push_back(std::move(leftBall));
         }
 
@@ -111,6 +121,8 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
             rightBall->objSprite->setPosition(rightPos);
             rightBall->isBorderBall = true;
             rightBall->isCollidable = true;
+            rightBall->isPlayer = false;
+            rightBall->shootable = false;
             newObjects.push_back(std::move(rightBall));
         }
     }
@@ -130,6 +142,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         ball->velocity = sf::Vector2f(0.f, 0.f);
         ball->isCollidable = true;
         ball->isBorderBall = true;
+        ball->isPlayer = false;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -141,6 +154,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         ball->velocity = sf::Vector2f(0.f, 0.f);
         ball->isCollidable = true;
         ball->isBorderBall = true;
+        ball->isPlayer = false;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -152,6 +166,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         ball->velocity = sf::Vector2f(0.f, 0.f);
         ball->isCollidable = true;
         ball->isBorderBall = true;
+        ball->isPlayer = false;
         newObjects.emplace_back(std::move(ball));
     }
 
@@ -163,6 +178,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         ball->velocity = sf::Vector2f(0.f, 0.f);
         ball->isCollidable = true;
         ball->isBorderBall = true;
+        ball->isPlayer = false;
         newObjects.emplace_back(std::move(ball));
     }
 }
@@ -200,7 +216,9 @@ void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uni
     }
     movement();
 
+   
     spawnBall(newObjects, objects);
+  
 
     checkGame(objects);
 
