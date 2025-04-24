@@ -2,8 +2,10 @@
 
 void Window::run()
 {
+    int i = 0;
     sf::Music music("../assets/song.ogg");
-    music.setLoopPoints({ sf::seconds(10), sf::seconds(244) });
+    music.setLoopPoints({ sf::seconds(0), sf::seconds(4.35) });
+    music.setLooping(true);
     music.play();
 
     Ball::loadTextures();
@@ -461,6 +463,8 @@ void Window::run()
             window.draw(creditsButton);
             break;
         case Screen::Play:
+            i = 0;
+            music.stop();
             while (objects[0]->state == gameState::Running)
             {
                 window.clear(background);
@@ -503,6 +507,8 @@ void Window::run()
             window.draw(yellowMenuButton); 
             break;
         case Screen::GameOver:
+            if (i == 0)
+                music.play();
             window.draw(finalScore);
             pointsDisplay.setPosition(sf::Vector2f(offset, 340.f));
             pointsDisplay.setString(std::to_string((int)(points)));
@@ -511,6 +517,7 @@ void Window::run()
             objects.clear();
             objects.push_back(std::make_unique<Player>());
             objects.push_back(std::make_unique<Ball>(1.f));
+            i++;
             break;
         }
         
