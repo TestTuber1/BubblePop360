@@ -7,8 +7,12 @@ class Player : public Object
 private:
 	void movement();
 	void spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects);
+	void checkGame(vector<std::unique_ptr<Object>>& objects);
 	void spawnBorderBalls(float screenWidth, float screenHeight, float ballSize, std::vector<std::unique_ptr<Object>>& newObjects, sf::Texture& tecture);
 	void spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects);
+	bool isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std::unique_ptr<Object>>& objects, const std::vector<std::unique_ptr<Object>>& newObjects);
+
+
 
 	sf::Texture arrowTexture;
 	float arrowRotation;

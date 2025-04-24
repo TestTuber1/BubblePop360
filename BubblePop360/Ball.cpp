@@ -127,6 +127,8 @@ void Ball::shoot(float arrowRotation)
 
 void Ball::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
+	if (!isMoving && !isPlayer)
+		return;
 	move();
 
 	for (size_t i = 0; i < objects.size(); ++i) 
