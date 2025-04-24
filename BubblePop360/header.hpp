@@ -4,6 +4,7 @@
 #include <istream>
 #include <ostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <sstream>
 #include <vector>
