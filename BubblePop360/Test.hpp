@@ -1,8 +1,11 @@
+#include "window.hpp"
 
 class Test
 {
-private:
-
 public:
-
+	void testSpawn();
+	void testScore();
+	void testWave();
+	void testShoot();
+	void testLoser();
 };
