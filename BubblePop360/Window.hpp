@@ -1,3 +1,4 @@
+#pragma once
 #include "Player.hpp"
 
 // Window will create an interactable window

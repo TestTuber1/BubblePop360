@@ -1,3 +1,4 @@
+#pragma once
 #include "header.hpp"
 
 // Object will be the entity for every object in the game
@@ -13,10 +14,11 @@ public:
 	bool justSpawned;
 	bool isCollidable;
 	bool isPlayer;
-	enum Color ballColor;
+	int ballColor;
 
 	// for the player
 	double points;
+	int ballCount;
 
 	Object() 
 	{

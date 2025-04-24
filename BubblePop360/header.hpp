@@ -12,17 +12,13 @@
 #include <random>
 #include <cmath>
 #include <memory>
+#include <queue>
+#include <unordered_set>
+
 
 using std::string;
 using std::cout;
 using std::vector;
-
-enum Color
-{
-	Red,
-	Blue,
-	Yellow
-};
 
 enum gameState
 {
