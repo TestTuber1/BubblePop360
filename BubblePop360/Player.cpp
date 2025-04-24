@@ -32,13 +32,11 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
         objects[objects.size() - 1]->shoot(arrowRotation - 90);
         newObjects.emplace_back(std::make_unique<Ball>(arrowRotation - 90));
 
-        sf::Texture texture;
-
         this->shotCounter++;
         if (this->shotCounter >= 6)
         {
             this->borderLayerCount++;
-            spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, texture);
+            spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, objects);
             this->shotCounter = 0;
         }
         std::cout << "asfsd";
@@ -66,46 +64,55 @@ void Player::checkGame(vector<std::unique_ptr<Object>>& objects)
     }
 }
 
-void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballSize, std::vector<std::unique_ptr<Object>>& newObjects, sf::Texture& texture)
+void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballSize, std::vector<std::unique_ptr<Object>>& newObjects, std::vector<std::unique_ptr<Object>>& objects)
 {
     float offset = borderLayerCount * ballSize;
 
+    // Top and bottom edges
     for (float x = offset; x <= screenWidth - ballSize - offset; x += ballSize)
     {
-        int colorID = rand() % 3;
+        sf::Vector2f topPos(x, offset);
+        if (isSpaceFree(topPos, ballSize, objects, newObjects))  
+        {
+            auto topBall = std::make_unique<Ball>(0.0f);
+            topBall->objSprite->setPosition(topPos);
+            topBall->isBorderBall = true;
+            topBall->isCollidable = true;
+            newObjects.push_back(std::move(topBall));
+        }
 
-        auto topBall = std::make_unique<Ball>(0.0f);
-        topBall->objSprite->setPosition(sf::Vector2f(x, offset));
-        topBall->isBorderBall = true;
-        topBall->isCollidable = true;
-
-        newObjects.push_back(std::move(topBall));
-
-        auto bottomBall = std::make_unique<Ball>(0.0f);
-        bottomBall->objSprite->setPosition(sf::Vector2f(x, screenHeight - ballSize - offset));
-        bottomBall->isBorderBall = true;
-        bottomBall->isCollidable = true;
-
-        newObjects.push_back(std::move(bottomBall));
+        sf::Vector2f bottomPos(x, screenHeight - ballSize - offset);
+        if (isSpaceFree(bottomPos, ballSize, objects, newObjects)) 
+        {
+            auto bottomBall = std::make_unique<Ball>(0.0f);
+            bottomBall->objSprite->setPosition(bottomPos);
+            bottomBall->isBorderBall = true;
+            bottomBall->isCollidable = true;
+            newObjects.push_back(std::move(bottomBall));
+        }
     }
 
+    // Left and right edges
     for (float y = offset + ballSize; y < screenHeight - ballSize - offset; y += ballSize)
     {
-        int colorID = rand() % 3;
+        sf::Vector2f leftPos(offset, y);
+        if (isSpaceFree(leftPos, ballSize, objects, newObjects)) {
+            auto leftBall = std::make_unique<Ball>(0.0f);
+            leftBall->objSprite->setPosition(leftPos);
+            leftBall->isBorderBall = true;
+            leftBall->isCollidable = true;
+            newObjects.push_back(std::move(leftBall));
+        }
 
-        auto leftBall = std::make_unique<Ball>(0.0f);
-        leftBall->objSprite->setPosition(sf::Vector2f(offset, y));
-        leftBall->isBorderBall = true;
-        leftBall->isCollidable = true;
-
-        newObjects.push_back(std::move(leftBall));
-
-        auto rightBall = std::make_unique<Ball>(0.0f);
-        rightBall->objSprite->setPosition(sf::Vector2f(screenWidth - ballSize - offset, y));
-        rightBall->isBorderBall = true;
-        rightBall->isCollidable = true;
-
-        newObjects.push_back(std::move(rightBall));
+        sf::Vector2f rightPos(screenWidth - ballSize - offset, y);
+        if (isSpaceFree(rightPos, ballSize, objects, newObjects))  
+        {
+            auto rightBall = std::make_unique<Ball>(0.0f);
+            rightBall->objSprite->setPosition(rightPos);
+            rightBall->isBorderBall = true;
+            rightBall->isCollidable = true;
+            newObjects.push_back(std::move(rightBall));
+        }
     }
 }
 
@@ -158,6 +165,30 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         ball->isBorderBall = true;
         newObjects.emplace_back(std::move(ball));
     }
+}
+
+bool Player::isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std::unique_ptr<Object>>& objects, const std::vector<std::unique_ptr<Object>>& newObjects)
+{
+    float radiusSquared = ballSize * ballSize;
+
+    auto checkList = [&](const std::vector<std::unique_ptr<Object>>& list) // lambda function, basically a function inside of a function
+        {
+        for (const auto& obj : list) 
+        {
+            if (!obj->objSprite) continue;
+            sf::Vector2f otherPos = obj->objSprite->getPosition();
+            float dx = otherPos.x - pos.x;
+            float dy = otherPos.y - pos.y;
+            float distanceSquared = dx * dx + dy * dy;
+            if (distanceSquared < radiusSquared)
+            {
+                return false;
+            }
+        }
+        return true;
+        };
+
+    return checkList(objects) && checkList(newObjects);
 }
 
 void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
