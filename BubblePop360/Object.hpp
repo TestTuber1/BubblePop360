@@ -19,6 +19,9 @@ public:
 	// for the player
 	double points;
 	int ballCount;
+	bool hasSpawnedLayer = false;
+	int borderLayerCount = 0;
+	static bool noMovement;
 
 	Object() 
 	{
@@ -29,4 +32,5 @@ public:
 
 	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {}
 	virtual void shoot(float arrowRotation) {}
+	virtual void spawnBorderBalls(float screenWidth, float screenHeight, float ballSize, std::vector<std::unique_ptr<Object>>& newObjects, std::vector<std::unique_ptr<Object>>& objects) {}
 };

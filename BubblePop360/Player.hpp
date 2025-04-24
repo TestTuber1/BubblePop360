@@ -12,14 +12,11 @@ private:
 	bool isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std::unique_ptr<Object>>& objects, const std::vector<std::unique_ptr<Object>>& newObjects);
 
 
-
 	sf::Texture arrowTexture;
 	float arrowRotation;
 	
 	sf::Music shootsound;
 	int shotCounter;
-	bool hasSpawnedLayer = false;
-	int borderLayerCount = 0;
 
 
 public:
@@ -34,7 +31,7 @@ public:
 		arrowRotation = 0.0;
 		points = 0.0;
 		ballCount = 0;
-		shotCounter = 0;
+		noMovement = true;
 	}
 
 	void checkGame(vector<std::unique_ptr<Object>>& objects);

@@ -20,16 +20,16 @@ void Ball::move()
 		velocity.y = 0;
 		isMoving = false;
 		justSpawned = false;
+		noMovement = true;
 	}
 
-	pos = this->objSprite->getPosition();
-
-	if (pos.y <= 0 || pos.y + 65 >= 768) 
+	else if (pos.y <= 0 || pos.y + 65 >= 768) 
 	{
 		velocity.x = 0;
 		velocity.y = 0;
 		isMoving = false;
 		justSpawned = false;
+		noMovement = true;
 	}
 
 	objSprite->move(velocity);
@@ -80,6 +80,8 @@ void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Obj
 		ball2->isMoving = false;
 		ball2->isPlayer = false;
 		ball2->justSpawned = false;
+
+		noMovement = true;
 	}
 
 }
@@ -124,6 +126,7 @@ void Ball::shoot(float arrowRotation)
 	isPlayer = true;
 	isCollidable = true;
 	direction = arrowRotation * (pi / 180.0f);
+	noMovement = false;
 }
 
 void Ball::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)

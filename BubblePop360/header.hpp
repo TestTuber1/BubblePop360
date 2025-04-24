@@ -18,6 +18,7 @@
 
 using std::string;
 using std::cout;
+using std::endl;
 using std::vector;
 using std::endl;
 

@@ -27,22 +27,15 @@ void Player::spawnBall(vector<std::unique_ptr<Object>>& newObjects, vector<std::
     static bool spacePressedLastFrame = false;
 
     bool isSpacePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space);
-    if (!spacePressedLastFrame && isSpacePressed)
+    if (!spacePressedLastFrame && isSpacePressed && noMovement)
     {
+        shotCounter++;
         auto newBall = std::make_unique<Ball>(arrowRotation - 90);
         if (newBall->shootable)
         {
             objects[objects.size() - 1]->shoot(arrowRotation - 90);
             newObjects.emplace_back(std::move(newBall));
         }
-        this->shotCounter++;
-        if (this->shotCounter >= 6)
-        {
-            this->borderLayerCount++;
-            spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, objects);
-            this->shotCounter = 0;
-        }
-        //std::cout << "asfsd";
 
         shootsound.play();
 
@@ -209,6 +202,12 @@ bool Player::isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std
 
 void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects)
 {
+    if (newObjects == objects)
+    {
+        checkGame(objects);
+        return;
+    }
+
     if (!hasSpawnedLayer)
     {
         spawnStartingLayer(newObjects);
@@ -216,6 +215,12 @@ void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uni
     }
     movement();
 
+    if ((shotCounter >= 6) && noMovement)
+    {
+        this->borderLayerCount++;
+        spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, objects);
+        shotCounter = 0;
+    }
    
     spawnBall(newObjects, objects);
   
