@@ -6,15 +6,15 @@ sf::Texture Ball::yellowBallTexture;
 
 void Ball::move()
 {
-	if (isMoving)
+	if (isMoving) //move based upon the direction of the arrow
 	{
 		velocity.x = 6.7f * std::cos(direction);
 		velocity.y = 6.7f * std::sin(direction);
 	}
 
-	pos = this->objSprite->getPosition();
+	pos = this->objSprite->getPosition(); //get the position of the ball from the std::sprite class and assign it to a local variable pos
 
-	if (pos.x <= 0 || pos.x + 64 >= 1024) 
+	if (pos.x <= 0 || pos.x + 64 >= 1024) //ensure ball movement remains within the game window width
 	{
 		velocity.x = 0;
 		velocity.y = 0;
@@ -22,9 +22,9 @@ void Ball::move()
 		justSpawned = false;
 	}
 
-	pos = this->objSprite->getPosition();
+	pos = this->objSprite->getPosition(); //update pos
 
-	if (pos.y <= 0 || pos.y + 65 >= 768) 
+	if (pos.y <= 0 || pos.y + 65 >= 768) //ensure ball movement remains within the game window height
 	{
 		velocity.x = 0;
 		velocity.y = 0;
@@ -32,17 +32,18 @@ void Ball::move()
 		justSpawned = false;
 	}
 
-	objSprite->move(velocity);
+	objSprite->move(velocity); //move the object based upon it's new location
 }
 
-void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects) {
-	Ball* ball1 = dynamic_cast<Ball*>(obj1.get());
+void Ball::checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects) 
+{
+	Ball* ball1 = dynamic_cast<Ball*>(obj1.get()); //access the ball class (which is a derived object) through a pointer to ball
 	Ball* ball2 = dynamic_cast<Ball*>(obj2.get());
 
 	if (!ball1 || !ball2 || !ball1->isCollidable || !ball2->isCollidable)
 		return;
 
-	float dx = ball1->objSprite->getPosition().x - ball2->objSprite->getPosition().x;
+	float dx = ball1->objSprite->getPosition().x - ball2->objSprite->getPosition().x; //x-distance = ball1 x-position minus ball2 x-position
 	float dy = ball1->objSprite->getPosition().y - ball2->objSprite->getPosition().y;
 	float distanceSquared = dx * dx + dy * dy;
 	float radiusSquared = (32 + 32) * (32 + 32);

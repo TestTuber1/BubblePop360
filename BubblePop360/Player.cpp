@@ -2,7 +2,7 @@
 
 void Player::movement()
 {
-    objSprite->setScale(sf::Vector2f(0.1f, 0.1f));
+    objSprite->setScale(sf::Vector2f(0.1f, 0.1f)); //distance a 
 
     objSprite->setOrigin(sf::Vector2f(arrowTexture.getSize().x * 0.5, arrowTexture.getSize().y * 1));
 

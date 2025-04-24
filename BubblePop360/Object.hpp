@@ -5,9 +5,9 @@
 class Object
 {
 public:
-	gameState state;
-	std::optional<sf::Sprite> objSprite;
-	sf::Vector2f velocity;
+	gameState state; //is the game running or not?
+	std::optional<sf::Sprite> objSprite; //sprite cannot be instantiated with null. This defines a sprite object as "optional," but objSprite will be used in our game
+	sf::Vector2f velocity; //vector2f is a set of two values. We will use it as velocity
 
 	// for the ball
 	bool isMoving;
@@ -20,13 +20,13 @@ public:
 	double points;
 	int ballCount;
 
-	Object() 
+	Object() //constructor
 	{
-		state = gameState::End;
+		state = gameState::End; //at instantiation, the game is not considered to be running
 		velocity = { 0,0 };
 	}
-	virtual ~Object() {}
+	virtual ~Object() {} //destructor may be overriden, based upon what derived type of object, object is
 
-	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {}
+	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {} //as in, update an object by means of the object's pointers. will be overriden.
 	virtual void shoot(float arrowRotation) {}
 };
