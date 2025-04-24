@@ -19,6 +19,7 @@ private:
 public:
 	bool isBorderBall = false;
 	bool isCollidable = true;
+	bool shootable;
 
 	void shoot(float arrowRotation);
 
@@ -28,6 +29,7 @@ public:
 		isMoving = false;
 		justSpawned = true;
 		isCollidable = false;
+		shootable = true;
 		direction = arrowRotation * (pi / 180.0f);
 
 		std::random_device rd;
