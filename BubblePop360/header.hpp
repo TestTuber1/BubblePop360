@@ -19,6 +19,7 @@
 using std::string;
 using std::cout;
 using std::vector;
+using std::endl;
 
 enum gameState
 {
