@@ -19,7 +19,6 @@ public:
 	// for the player
 	double points;
 	int ballCount;
-	int shotCounter;
 	bool hasSpawnedLayer = false;
 	int borderLayerCount = 0;
 	static bool noMovement;

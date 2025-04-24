@@ -15,7 +15,6 @@ private:
 	// collects the connected balls for checkBallCollision to go through
 	float direction;
 	sf::Vector2f pos;
-	static bool noMovement;
 public:
 	bool isBorderBall = false;
 	bool isCollidable = true;

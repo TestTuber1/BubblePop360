@@ -4,8 +4,6 @@ sf::Texture Ball::redBallTexture;
 sf::Texture Ball::blueBallTexture;
 sf::Texture Ball::yellowBallTexture;
 
-bool Ball::noMovement = false;
-
 void Ball::move()
 {
 	if (isMoving)
@@ -25,9 +23,7 @@ void Ball::move()
 		noMovement = true;
 	}
 
-	pos = this->objSprite->getPosition();
-
-	if (pos.y <= 0 || pos.y + 65 >= 768) 
+	else if (pos.y <= 0 || pos.y + 65 >= 768) 
 	{
 		velocity.x = 0;
 		velocity.y = 0;
