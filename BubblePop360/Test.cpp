@@ -28,9 +28,33 @@ bool Test::testScore()
 
 bool Test::testWave()
 {
-	
+	float borderLayerCount = 0;
+	float screenWidth = 1024.0f;
+	float screenHeight = 768.0f;
+	float ballSize = 64.0f;
+	float offset = borderLayerCount * ballSize;
+	int ballCounter = 0;
 
+	for (int i = 0; i < 6; i++)
+	{
+		borderLayerCount++;
+		for (float x = offset; x <= screenWidth - ballSize - offset; x += ballSize)
+		{
+			ballCounter++;
+		}
+
+		for (float y = offset + ballSize; y < screenHeight - ballSize - offset; y += ballSize)
+		{
+			ballCounter++;
+		}
+	}
+	
+	if (ballCounter == 156)
+	{
+		return true;
+	}
 	return false;
+
 }
 
 bool Test::testShoot()

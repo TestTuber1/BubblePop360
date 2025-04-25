@@ -10,6 +10,8 @@ class Test
 	bool testWave();
 	bool testShoot();
 	bool testLoser();
+
+
 public:
 	void testing();
 };
