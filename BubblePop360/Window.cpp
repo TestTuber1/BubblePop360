@@ -32,7 +32,7 @@ void Window::run()
     objects.push_back(std::make_unique<Ball>(1.f));
 
     Screen currentScreen = Screen::Menu;
-    sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode({ 1050, 768 }), "", sf::Style::Close);
     sf::Color background(252, 247, 255);
     window.setFramerateLimit(60);
 
