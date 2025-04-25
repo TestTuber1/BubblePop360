@@ -130,7 +130,7 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
 void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
 {
     const float ballSize = 64.f;
-    const float width = 1050.f;
+    const float width = 1024.f;
     const float height = 768.f;
 
     // Top edge (left to right)
