@@ -10,7 +10,7 @@ int main()
 
 	Window app;
 
-	// app.run();
+	app.run();
 
 	return 0;
 }
