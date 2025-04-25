@@ -133,7 +133,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
     const float width = 1024.f;
     const float height = 768.f;
 
-    // Top edge (left to right)
+    // Top edge 
     for (float x = 0.f; x <= width - ballSize; x += ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -145,7 +145,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Right edge (top to bottom) — skip top and bottom corners
+    // Right edge — skip top and bottom corners
     for (float y = ballSize; y <= height - ballSize * 2; y += ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -157,7 +157,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Bottom edge (right to left)
+    // Bottom edge 
     for (float x = width - ballSize; x >= 0.f; x -= ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -169,7 +169,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Left edge (bottom to top) — skip bottom and top corners
+    // Left edge — skip bottom and top corners
     for (float y = height - ballSize * 2; y >= ballSize; y -= ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -186,7 +186,7 @@ bool Player::isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std
 {
     float radiusSquared = ballSize * ballSize;
 
-    auto checkList = [&](const std::vector<std::unique_ptr<Object>>& list) // lambda function, basically a function inside of a function
+    auto checkList = [&](const std::vector<std::unique_ptr<Object>>& list) // lambda function, basically a function inside of a function, checks if there's a space avaibliable for a ball to spawn
         {
         for (const auto& obj : list) 
         {

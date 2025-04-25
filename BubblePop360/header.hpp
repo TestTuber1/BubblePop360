@@ -1,5 +1,6 @@
 #pragma once
 
+// this file is used for everything that doesn't need to be in a class
 #include <iostream>
 #include <istream>
 #include <ostream>

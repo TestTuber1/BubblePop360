@@ -31,7 +31,6 @@ public:
 	}
 	virtual ~Object() {}
 
-	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) {}
+	virtual void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) = 0; // pure virtual, only called by other classes
 	virtual void shoot(float arrowRotation) {}
-	virtual void spawnBorderBalls(float screenWidth, float screenHeight, float ballSize, std::vector<std::unique_ptr<Object>>& newObjects, std::vector<std::unique_ptr<Object>>& objects) {}
 };

@@ -10,9 +10,8 @@ private:
 	static sf::Texture yellowBallTexture;
 
 	void move();
-	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects);
-	void connectedBalls(Ball* start, vector<std::unique_ptr<Object>>& objects, std::vector<Ball*>& group);
-	// collects the connected balls for checkBallCollision to go through
+	void checkBallCollision(std::unique_ptr<Object>& obj1, std::unique_ptr<Object>& obj2, vector<std::unique_ptr<Object>>& objects); // checks the collided balls and pops them if they're the same color, goes down the chain of balls that have the same color
+	void connectedBalls(Ball* start, vector<std::unique_ptr<Object>>& objects, std::vector<Ball*>& group); // collects the connected balls for checkBallCollision to go through
 	float direction;
 	sf::Vector2f pos;
 public:
@@ -57,7 +56,7 @@ public:
 
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
 
-	static void loadTextures()
+	static void loadTextures() // loads the textures for the 3 colored balls
 	{
 		redBallTexture.loadFromFile("../assets/redBall.png");
 		blueBallTexture.loadFromFile("../assets/blueBall.png");

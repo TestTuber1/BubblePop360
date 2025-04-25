@@ -2,6 +2,7 @@
 
 void Window::run()
 {
+    // first section sets up everything in the window
     int i = 0;
     sf::Music music("../assets/song.ogg");
     music.setLoopPoints({ sf::seconds(0), sf::seconds(4.35) });
@@ -80,7 +81,7 @@ void Window::run()
     programmers.move(programmersPos);
 
     // -------------------------------------------------------------------------
-
+    // this section sets up for when you press play
     sf::Texture playTexture;
     playTexture.loadFromFile("../assets/play.png");
 
@@ -95,7 +96,7 @@ void Window::run()
     playButton.move(playPos);
 
     // -------------------------------------------------------------------------
-
+    // this section sets up for when you press guide
     sf::Texture guideTexture;
     guideTexture.loadFromFile("../assets/guide.png");
 
@@ -108,7 +109,7 @@ void Window::run()
     guideButton.move(guidePos);
 
     // -------------------------------------------------------------------------
-
+    // this section sets up for when you press credits
     sf::Texture creditsTexture;
     creditsTexture.loadFromFile("../assets/credits.png");
 
@@ -121,7 +122,7 @@ void Window::run()
     creditsButton.move(creditsPos);
 
     // -------------------------------------------------------------------------
-
+    // next 3 sections set up the menu button when you game over
     sf::Texture redMenuTexture;
     redMenuTexture.loadFromFile("../assets/redMenu.png");
 
@@ -160,7 +161,8 @@ void Window::run()
     yellowMenuButton.move(yellowMenuPos);
 
     // -------------------------------------------------------------------------
-
+    // this section sets up and is the main window loop
+    // each sub-section in this section separates different things are on the screen
     float playRotation = 0.0;
     AnimationPhase playPhase = AnimationPhase::None;
     bool wasPlayHovered = false;
@@ -282,7 +284,7 @@ void Window::run()
         float rotationSpeed = 0.56;
         
         // -------------------------------------------------------------------------
-
+        // when you press play
         switch (playPhase) {
         case AnimationPhase::RotateForward:
             playRotation += rotationSpeed;
@@ -310,7 +312,7 @@ void Window::run()
         playButton.setRotation(sf::degrees(playRotation));
 
         // -------------------------------------------------------------------------
-
+        // when you press guide
         switch (guidePhase) {
         case AnimationPhase::RotateForward:
             guideRotation += rotationSpeed;
@@ -338,7 +340,7 @@ void Window::run()
         guideButton.setRotation(sf::degrees(guideRotation));
 
         // -------------------------------------------------------------------------
-
+        // when you press credits
         switch (creditsPhase) {
         case AnimationPhase::RotateForward:
             creditsRotation += rotationSpeed;
@@ -450,7 +452,7 @@ void Window::run()
         yellowMenuButton.setRotation(sf::degrees(yellowMenuRotation));
 
         // -------------------------------------------------------------------------
-
+        // main game loop
         window.clear(background);
 
         switch (currentScreen)
