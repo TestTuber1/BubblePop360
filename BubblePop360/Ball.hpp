@@ -29,6 +29,7 @@ public:
 		justSpawned = true;
 		isCollidable = false;
 		shootable = true;
+		readyToJoinVector = true;
 		direction = arrowRotation * (pi / 180.0f);
 
 		std::random_device rd;

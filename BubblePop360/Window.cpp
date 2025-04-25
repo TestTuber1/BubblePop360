@@ -475,7 +475,8 @@ void Window::run()
                 }
                 for (auto& obj : newObjects)
                 {
-                    objects.push_back(std::move(obj));
+                    if (obj->readyToJoinVector)
+                        objects.push_back(std::move(obj));
                 }
                 for (size_t i = 0; i < objects.size(); ++i)
                 {
