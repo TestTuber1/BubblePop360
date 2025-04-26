@@ -14,7 +14,7 @@ void Ball::move()
 
 	pos = this->objSprite->getPosition();
 
-	if (pos.x <= 0 || pos.x + 64 >= 1024) // checks if ball isn't moving
+	if (pos.x <= 0 || pos.x + 64 >= 1024) 
 	{
 		velocity.x = 0;
 		velocity.y = 0;
@@ -23,7 +23,7 @@ void Ball::move()
 		noMovement = true;
 	}
 
-	else if (pos.y <= 0 || pos.y + 65 >= 768) // checks if ball isn't moving
+	else if (pos.y <= 0 || pos.y + 65 >= 768)
 	{
 		velocity.x = 0;
 		velocity.y = 0;

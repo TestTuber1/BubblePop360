@@ -1,4 +1,4 @@
-#include "Player.hpp"
+ï»¿#include "Player.hpp"
 
 void Player::movement()
 {
@@ -130,10 +130,10 @@ void Player::spawnBorderBalls(float screenWidth, float screenHeight, float ballS
 void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
 {
     const float ballSize = 64.f;
-    const float width = 1024.f;
+    const float width = 1050.f;
     const float height = 768.f;
 
-    // Top edge 
+    // Top edge (left to right)
     for (float x = 0.f; x <= width - ballSize; x += ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -145,7 +145,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Right edge — skip top and bottom corners
+    // Right edge (top to bottom) â€” skip top and bottom corners
     for (float y = ballSize; y <= height - ballSize * 2; y += ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -157,7 +157,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Bottom edge 
+    // Bottom edge (right to left)
     for (float x = width - ballSize; x >= 0.f; x -= ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -169,7 +169,7 @@ void Player::spawnStartingLayer(vector<std::unique_ptr<Object>>& newObjects)
         newObjects.emplace_back(std::move(ball));
     }
 
-    // Left edge — skip bottom and top corners
+    // Left edge (bottom to top) â€” skip bottom and top corners
     for (float y = height - ballSize * 2; y >= ballSize; y -= ballSize)
     {
         auto ball = std::make_unique<Ball>(0.f);
@@ -186,7 +186,7 @@ bool Player::isSpaceFree(sf::Vector2f pos, float ballSize, const std::vector<std
 {
     float radiusSquared = ballSize * ballSize;
 
-    auto checkList = [&](const std::vector<std::unique_ptr<Object>>& list) // lambda function, basically a function inside of a function, checks if there's a space avaibliable for a ball to spawn
+    auto checkList = [&](const std::vector<std::unique_ptr<Object>>& list) // lambda function, basically a function inside of a function
         {
         for (const auto& obj : list) 
         {

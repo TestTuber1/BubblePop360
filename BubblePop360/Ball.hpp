@@ -56,7 +56,7 @@ public:
 
 	void update(vector<std::unique_ptr<Object>>& newObjects, vector<std::unique_ptr<Object>>& objects) override;
 
-	static void loadTextures() // loads the textures for the 3 colored balls
+	static void loadTextures() // loads the textures of the colors
 	{
 		redBallTexture.loadFromFile("../assets/redBall.png");
 		blueBallTexture.loadFromFile("../assets/blueBall.png");
