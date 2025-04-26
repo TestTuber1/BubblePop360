@@ -221,10 +221,14 @@ void Player::update(vector<std::unique_ptr<Object>>& newObjects, vector<std::uni
     }
     movement();
 
-    if ((shotCounter >= 6) && noMovement)
+    if ((shotCounter > 6) && noMovement)
     {
         this->borderLayerCount++;
         spawnBorderBalls(1024.0f, 768.0f, 64.0f, newObjects, objects);
+        auto newBall = std::make_unique<Ball>(arrowRotation - 90);
+        objects.push_back(std::move(newBall));
+        /*auto it = std::move(objects.back());
+        objects.pop_back();*/
         shotCounter = 0;
     }
    
